@@ -1001,10 +1001,7 @@ app.post("/wishlist", verifyToken, async (req, res) => {
     if (!product_id)
       return res.status(400).json({ message: "product_id is required" });
 
-    const existing = await Wishlist.findOne({ 
-  user_id: req.user.id, 
-  product_id: new mongoose.Types.ObjectId(product_id) 
-});
+    const existing = await Wishlist.findOne({ user_id, product_id });
 
     if (existing) {
       await Wishlist.deleteOne({ _id: existing._id });
